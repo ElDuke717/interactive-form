@@ -1,13 +1,25 @@
+/**Global Variables */
 const nameInput = document.getElementById('name');
-nameInput.focus();
-const focusTest = () => nameInput.focus ? 'yay!' : 'nay!';
-console.log(focusTest());
-
 const jobSelect = document.getElementById('title');
-console.log(jobSelect);
-console.log(jobSelect.value);
 const otherJob = document.getElementById('other-job-role');
-console.log(otherJob);
+const designSelect = document.getElementById('design');
+const colorSelect = document.getElementById('color');
+const colorOption = document.querySelectorAll('#color option');
 
-const jobHide = () => jobSelect.value !== 'other' ? otherJob.style.display = "hidden": otherJob.style.display = "show";
-console.log(jobHide());
+console.log(designSelect);
+console.log(colorSelect);
+console.log(colorOption);
+
+//nameInput.focus() makes the Name input box highlighted when the user opens the page. 
+nameInput.focus();
+//const focusTest = () => nameInput.focus ? console.log('yay!') : console.log('nay!');
+
+//otherJob text box is hidden by default. 
+otherJob.style.display = 'none';
+
+//conditional logic in this event listener makes the 
+jobSelect.addEventListener('change', e => {
+    jobSelect.value === 'other' ? otherJob.style.display = "block": otherJob.style.display = "none";
+});
+
+colorSelect.disable = 'true';
