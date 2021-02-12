@@ -29,7 +29,18 @@ designSelect.addEventListener('change', e => {
     for (let i = 0; i < colorOption.length; i++) {
         const eventValue = e.target.value;
         console.log(eventValue);
-        colorOption[i].getAttribute('value');
-        console.log(colorOption[i].getAttribute('value'));
+        colorOption[i].getAttribute('data-theme');
+        console.log(colorOption[i].getAttribute('data-theme'));
+        if (eventValue === colorOption[i].getAttribute('data-theme')) {
+            console.log('they matched!')
+            colorOption.hidden = 'false';
+            colorOption.selected = 'true';
+        } else {
+            console.log('they didn\'t match');
+            colorOption.hidden = 'true';
+            colorOption.selected = 'false';
+        }
+        console.log(colorOption.hidden);
+        console.log(colorOption.selected);
     }
 });
