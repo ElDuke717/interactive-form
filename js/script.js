@@ -9,6 +9,9 @@ const colorOption = document.querySelectorAll('#color option');
 // console.log(designSelect);
 // console.log(colorSelect);
 // console.log(colorOption);
+// console.log(colorSelect);
+// console.log(colorSelect.children);
+// console.log(colorOption);
 
 //nameInput.focus() makes the Name input box highlighted when the user opens the page. 
 nameInput.focus();
@@ -19,28 +22,30 @@ otherJob.style.display = 'none';
 
 //conditional logic in this event listener makes the 
 jobSelect.addEventListener('change', e => {
-    jobSelect.value === 'othe r' ? otherJob.style.display = "block": otherJob.style.display = "none";
+    jobSelect.value === 'other' ? otherJob.style.display = "block": otherJob.style.display = "none";
 });
 
 colorSelect.disabled = 'true';
+//console.log(colorSelect.disabled);
 
 designSelect.addEventListener('change', e => {
-    colorSelect.disabled = 'false'
-    for (let i = 0; i < colorOption.length; i++) {
+    colorSelect.removeAttribute('disabled');
+    //console.log(colorSelect.disabled);
+    for (let i = 0; i < colorSelect.children.length; i++) {
         const eventValue = e.target.value;
-        console.log(eventValue);
-        colorOption[i].getAttribute('data-theme');
-        console.log(colorOption[i].getAttribute('data-theme'));
+        //console.log(eventValue);
+        colorSelect.children[i].getAttribute('data-theme');
+       // console.log(colorOption[i].getAttribute('data-theme'));
         if (eventValue === colorOption[i].getAttribute('data-theme')) {
             console.log('they matched!')
-            colorOption.hidden = 'false';
-            colorOption.selected = 'true';
+            colorSelect.children.hidden = 'false';
+            colorSelect.children[i].style.display = "show";
         } else {
             console.log('they didn\'t match');
-            colorOption.hidden = 'true';
-            colorOption.selected = 'false';
+            colorSelect.children.hidden = 'true';
+            colorSelect.children[i].style.display = "none";
         }
-        console.log(colorOption.hidden);
-        console.log(colorOption.selected);
+        console.log(colorSelect.children.hidden);
+        console.log(colorSelect.children[i].selected);
     }
 });
