@@ -20,13 +20,13 @@ nameInput.focus();
 //otherJob text box is hidden by default. 
 otherJob.style.display = 'none';
 
-//conditional logic in this event listener makes the 
+//conditional logic in this event listener makes the "other" input box appear or dissappear.
 jobSelect.addEventListener('change', e => {
     jobSelect.value === 'other' ? otherJob.style.display = "block": otherJob.style.display = "none";
 });
 
+//Disables the select drop down list until the Design drop down is selected. 
 colorSelect.disabled = 'true';
-//console.log(colorSelect.disabled);
 
 designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
@@ -37,15 +37,15 @@ designSelect.addEventListener('change', e => {
         colorSelect.children[i].getAttribute('data-theme');
        // console.log(colorOption[i].getAttribute('data-theme'));
         if (eventValue === colorOption[i].getAttribute('data-theme')) {
-            console.log('they matched!')
+            //console.log('they matched!')
             colorSelect.children.hidden = 'false';
-            colorSelect.children[i].style.display = "show";
+            colorSelect.children[i].style.display = "block";
         } else {
-            console.log('they didn\'t match');
+            //console.log('they didn\'t match');
             colorSelect.children.hidden = 'true';
             colorSelect.children[i].style.display = "none";
         }
         console.log(colorSelect.children.hidden);
-        console.log(colorSelect.children[i].selected);
+        console.log(colorSelect.children[i]);
     }
 });
