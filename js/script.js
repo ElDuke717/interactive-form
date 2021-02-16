@@ -69,7 +69,18 @@ registerActivity.addEventListener('change', e => {
 payPal.style.display = 'none';
 bitCoin.style.display = 'none';
 
+paymentMethod.children[1].setAttribute('class', 'selected');
+//console.log(paymentMethod.children.length);
+//console.log(paymentMethod.children);
 
 paymentMethod.addEventListener('change', e =>{
-    console.log('picking something');
-});
+    console.log(e.target.value);
+    const pChild = paymentMethod.children;
+    console.log(pChild);
+    for (let i = 0; i < pChild.length; i++) {
+        if (e.target.value === pChild[i]) {
+             console.log(pChild[i]);
+         }
+    }
+    
+}); 
