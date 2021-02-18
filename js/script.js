@@ -12,17 +12,17 @@ const colorOption = document.querySelectorAll('#color option');
 const registerActivity = document.getElementById('activities');
 const activitiesBox = document.getElementById('activities-box');
 const activitiesTotal = document.getElementById('activities-cost');
-
 const mainConference = document.getElementsByTagName('input')[3];
 let totalCost = 0;
  //Tuesday morning workshops
  const librariesWS = document.querySelector('input[name="js-libs"]');
  const frameworkWS = document.querySelector('input[name="js-frameworks"]');
-
+ const tuesAMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 9am-12pm"]');
+ 
  //Tuesday afternoon workshops
  const nodejsWS = document.querySelector('input[name="node"]');
  const buildtWS = document.querySelector('input[name="build-tools"');
-
+ const tuesPMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 1pm-4pm"]');
 
 //Selects all checkboxes on the page - based on input type 
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
@@ -54,6 +54,7 @@ jobSelect.addEventListener('change', e => {
 /**Disables the select drop down list until the Design drop down is selected. */
 colorSelect.disabled = 'true';
 
+/**Event listener checks for input into the dropdown list, enables selection of different T-shirt designs  */
 designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
     for (let i = 0; i < colorSelect.children.length; i++) {
@@ -61,11 +62,9 @@ designSelect.addEventListener('change', e => {
         colorSelect.children[i].getAttribute('data-theme');
 
         if (eventValue === colorOption[i].getAttribute('data-theme')) {
-            //console.log('they matched!')
             colorSelect.children.hidden = 'false';
             colorSelect.children[i].style.display = "block";
         } else {
-            //console.log('they didn\'t match');
             colorSelect.children.hidden = 'true';
             colorSelect.children[i].style.display = "none";
         }
@@ -82,39 +81,27 @@ registerActivity.addEventListener('change', e => {
         totalCost -= dataCost; 
     }
     activitiesTotal.innerHTML = `Total: $${totalCost}`;
+    //This section disables activities that happen concurrently, based on user input.
     if (librariesWS.checked) {
-        console.log('libraries checked');
         frameworkWS.setAttribute('disabled', 'disabled');
     } else if (!librariesWS.checked) {
-        console.log('libraries unchecked');
         frameworkWS.removeAttribute('disabled');
-        console.log(frameworkWS.disabled);
     }
     if (frameworkWS.checked) {
-        console.log('frameworks checked');
         librariesWS.setAttribute('disabled', 'disabled');
     } else if (!frameworkWS.checked) {
-        console.log('frameworks unchecked');
         librariesWS.removeAttribute('disabled');
-        console.log(librariesWS.disabled);
     }
     if (nodejsWS.checked) {
-        console.log('nodeJS checked');
         buildtWS.setAttribute('disabled', 'disabled');
     } else if (!nodejsWS.checked) {
-        console.log('nodeJS unchecked');
         buildtWS.removeAttribute('disabled');
-        console.log(buildtWS.disabled);
     }
     if (buildtWS.checked) {
-        console.log('build checked');
         nodejsWS.setAttribute('disabled', 'disabled');
     } else if (!buildtWS.checked) {
-        console.log('build unchecked');
         nodejsWS.removeAttribute('disabled');
-        console.log(nodejsWS.disabled);
     }
-
 });
 
 
@@ -186,8 +173,20 @@ payment.addEventListener('change', e =>{
         e.preventDefault();
 
     });
+ 
+/**for...of loops for focus and blur states on each activity.  I couldn't figure
+ * out how to make this work using a conventional for loop and to make addEventListener
+ * work with the checkboxes variable and querySelectorAll.
+ */
+    for (const checkbox of checkboxes) {
+    checkbox.addEventListener('focus', e =>{
+        e.target.parentNode.classList.add('focus');
+        })
+    };
 
-    const tuesAMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 9am-12pm"]');
-    const tuesPMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 1pm-4pm"]');
-
+    for (const checkbox of checkboxes) {
+    checkbox.addEventListener('blur', e =>{
+        e.target.parentNode.classList.remove('focus');
+        })
+    };
    
