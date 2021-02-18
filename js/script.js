@@ -12,7 +12,22 @@ const colorOption = document.querySelectorAll('#color option');
 const registerActivity = document.getElementById('activities');
 const activitiesBox = document.getElementById('activities-box');
 const activitiesTotal = document.getElementById('activities-cost');
+
+const mainConference = document.getElementsByTagName('input')[3];
 let totalCost = 0;
+ //Tuesday morning workshops
+ const librariesWS = document.querySelector('input[name="js-libs"]');
+ const frameworkWS = document.querySelector('input[name="js-frameworks"]');
+
+ //Tuesday afternoon workshops
+ const nodejsWS = document.querySelector('input[name="node"]');
+ const buildtWS = document.querySelector('input[name="build-tools"');
+
+
+//Selects all checkboxes on the page - based on input type 
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+//Selects all the checkboxes that have been checked
+const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
 //Payment selection variables
 const payMethod = document.querySelector('.payment-methods');
 const payment = document.getElementById('payment');
@@ -64,10 +79,44 @@ registerActivity.addEventListener('change', e => {
     if (e.target.checked) {
         totalCost += dataCost;        
     } else if (!e.target.checked) {
-        totalCost -= dataCost;
+        totalCost -= dataCost; 
     }
     activitiesTotal.innerHTML = `Total: $${totalCost}`;
+    if (librariesWS.checked) {
+        console.log('libraries checked');
+        frameworkWS.setAttribute('disabled', 'disabled');
+    } else if (!librariesWS.checked) {
+        console.log('libraries unchecked');
+        frameworkWS.removeAttribute('disabled');
+        console.log(frameworkWS.disabled);
+    }
+    if (frameworkWS.checked) {
+        console.log('frameworks checked');
+        librariesWS.setAttribute('disabled', 'disabled');
+    } else if (!frameworkWS.checked) {
+        console.log('frameworks unchecked');
+        librariesWS.removeAttribute('disabled');
+        console.log(librariesWS.disabled);
+    }
+    if (nodejsWS.checked) {
+        console.log('nodeJS checked');
+        buildtWS.setAttribute('disabled', 'disabled');
+    } else if (!nodejsWS.checked) {
+        console.log('nodeJS unchecked');
+        buildtWS.removeAttribute('disabled');
+        console.log(buildtWS.disabled);
+    }
+    if (buildtWS.checked) {
+        console.log('build checked');
+        nodejsWS.setAttribute('disabled', 'disabled');
+    } else if (!buildtWS.checked) {
+        console.log('build unchecked');
+        nodejsWS.removeAttribute('disabled');
+        console.log(nodejsWS.disabled);
+    }
+
 });
+
 
 /**Payment validation */
 //credit card is the default payment method, payPal and bitCoin methods are obscured until they are chosen.
@@ -105,7 +154,7 @@ payment.addEventListener('change', e =>{
         const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput.value);
         if (!emailIsValid) {
             e.preventDefault();
-            alert('Please enter a valid e-mail address');
+            alert('Please enter a valid e-mail address.');
         }
         const creditValidation = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(ccNumber.value);
         //regex for cc number from w3resource https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-2.php
@@ -117,25 +166,28 @@ payment.addEventListener('change', e =>{
         //zip code validator from stack overflow https://stackoverflow.com/questions/2577236/regex-for-zip-code
         if (!zipValidation) {
             e.preventDefault();
-            alert('Please enter a valid zip code');
+            alert('Please enter a valid zip code.');
         }
         const cvvValidation = /^\d{3}$/.test(cvv.value);
         if (!cvvValidation) {
             e.preventDefault();
-            alert('Please enter a valid CVV number');
+            alert('Please enter a valid CVV number.');
         }
-        
+        /**This section checks to ensure that at least one activity is checked */
+        let checks = [];
+        checkedBoxes.forEach((c) => {
+        checks.push(c.checked);
+        });
+        if (checks.length === 0) {
+            e.preventDefault();
+            alert('Please select at least one activity.')
+        }
+        //Remove this when validation is complete.
         e.preventDefault();
 
     });
 
-    console.log(registerActivity);
-    console.log(typeof registerActivity);
+    const tuesAMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 9am-12pm"]');
+    const tuesPMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 1pm-4pm"]');
 
-    console.log(activitiesBox);
-    console.log(typeof activitiesBox);
-    console.log(activitiesBox.children);
-
-    const checkbox = document.getElementsByTagName('input')[3];
-
-    console.log(checkbox);
+   
