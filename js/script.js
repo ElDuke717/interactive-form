@@ -140,7 +140,7 @@ wholeForm.addEventListener('submit', e => {
     }        
     if (!nameIsValid) {
         e.preventDefault();
-        alert('Please enter a valid name.');
+        //alert('Please enter a valid name.');
         nameInput.parentElement.classList.add('not-valid');
         nameInput.parentElement.classList.remove('valid');
         nameInput.parentElement.lastElementChild.style.display = 'block';
@@ -151,7 +151,7 @@ wholeForm.addEventListener('submit', e => {
     }        
     if (!emailIsValid) {
         e.preventDefault();
-        alert('Please enter a valid e-mail address.');
+        //alert('Please enter a valid e-mail address.');
         emailInput.parentElement.classList.add('not-valid');
         emailInput.parentElement.classList.remove('valid');
         emailInput.parentElement.lastElementChild.style.display = 'block';
@@ -163,7 +163,7 @@ wholeForm.addEventListener('submit', e => {
     }
     if (!creditValidation){
         e.preventDefault();
-        alert('Please enter a valid credit card number');
+        //alert('Please enter a valid credit card number');
         ccNumber.parentElement.classList.add('not-valid');
         ccNumber.parentElement.classList.remove('valid');
         ccNumber.parentElement.lastElementChild.style.display = 'block';
@@ -175,7 +175,7 @@ wholeForm.addEventListener('submit', e => {
     }
     if (!zipValidation) {
         e.preventDefault();
-        alert('Please enter a valid zip code.');
+        //alert('Please enter a valid zip code.');
         zipCode.parentElement.classList.add('not-valid');
         zipCode.parentElement.classList.remove('valid');
         zipCode.parentElement.lastElementChild.style.display = 'block';
@@ -186,7 +186,7 @@ wholeForm.addEventListener('submit', e => {
     }
     if (!cvvValidation) {
         e.preventDefault();
-        alert('Please enter a valid CVV number.');
+        //alert('Please enter a valid CVV number.');
         cvv.parentElement.classList.add('not-valid');
         cvv.parentElement.classList.remove('valid');
         cvv.parentElement.lastElementChild.style.display = 'block';
@@ -201,10 +201,10 @@ wholeForm.addEventListener('submit', e => {
         activitiesBox.parentElement.classList.add('not-valid');
         activitiesBox.parentElement.classList.remove('valid');
         activitiesBox.parentElement.lastElementChild.style.display = 'block';   
-        alert('Please select at least one activity.')
+        //alert('Please select at least one activity.')
     }    
     //Remove this when validation is complete.
-    e.preventDefault();
+    
 });   
  
 /**for...of loops for focus and blur states on each activity.  I couldn't figure
