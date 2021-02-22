@@ -46,7 +46,7 @@ const zipCode = document.getElementById('zip');
 const cvv = document.getElementById('cvv');
 const payPal = document.getElementById('paypal');
 const bitCoin = document.getElementById('bitcoin');
-
+const notBlank = document.getElementById('cc-not-blank');
 
 /**nameInput.focus() makes the Name input box highlighted when the user opens the page. */
 nameInput.focus();
@@ -138,16 +138,11 @@ payment.addEventListener('change', e =>{
         credit.style.display = 'none';
         payPal.style.display = 'none'
     }  
-    console.log(payment.value);
 }); 
-
-
-
-
 
 /**wholeForm event listener validates names and e-mail addresses before the form can be submitted. */
 wholeForm.addEventListener('submit', e => {
-    console.log('form submittal')
+    //console.log('form submittal')
     /**nameIsValid has a regular expression that tests for first and last names.  Middle initial 
      * is optional. */
     const nameIsValid = /^[a-zA-Z]+\s?[a-zA-Z]*? [a-zA-Z]*?$/mg.test(nameInput.value);
@@ -185,8 +180,12 @@ wholeForm.addEventListener('submit', e => {
         emailInput.parentElement.classList.add('valid');
     }
 
-    if (payment.value !== 'paypal' || payment.value !== 'bitcoin') {
+    if (payment.value === 'select method') {
+        e.preventDefault();
+        notBlank.style.display = 'block'
+    }
 
+    if (payment.value === 'credit-card') {
         const creditValidation = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(ccNumber.value);
         /**regex for cc number from w3resource 
          * https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-2.php */
