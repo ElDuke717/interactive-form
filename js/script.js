@@ -4,32 +4,40 @@ const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
 const jobSelect = document.getElementById('title');
 const otherJob = document.getElementById('other-job-role');
-//T-shirt selection menu variables
+
+/**T-shirt selection menu variables*/
 const designSelect = document.getElementById('design');
 const colorSelect = document.getElementById('color');
 const colorOption = document.querySelectorAll('#color option');
-//Activities selection variables
+
+/**Activities selection variables*/
 const registerActivity = document.getElementById('activities');
 const activitiesBox = document.getElementById('activities-box');
 const activitiesTotal = document.getElementById('activities-cost');
 const mainConference = document.getElementsByTagName('input')[3];
 let totalCost = 0;
- //Tuesday morning workshops
- const librariesWS = document.querySelector('input[name="js-libs"]');
- const frameworkWS = document.querySelector('input[name="js-frameworks"]');
- const tuesAMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 9am-12pm"]');
- 
- //Tuesday afternoon workshops
- const nodejsWS = document.querySelector('input[name="node"]');
- const buildtWS = document.querySelector('input[name="build-tools"');
- const tuesPMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 1pm-4pm"]');
 
-//Selects all checkboxes on the page - based on input type 
+/**Variables to select the additional hints for name and email validation */
+const completeNameHint = document.getElementById('complete-name-hint');
+const completeEmailHint = document.getElementById('complete-email-hint');
+
+/**Tuesday morning workshops*/
+const librariesWS = document.querySelector('input[name="js-libs"]');
+const frameworkWS = document.querySelector('input[name="js-frameworks"]');
+const tuesAMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 9am-12pm"]');
+
+/**Tuesday afternoon workshops*/
+const nodejsWS = document.querySelector('input[name="node"]');
+const buildtWS = document.querySelector('input[name="build-tools"');
+const tuesPMworkshops = document.querySelectorAll('input[data-day-and-time="Tuesday 1pm-4pm"]');
+
+/**Selects all checkboxes on the page - based on input type */ 
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 
-//Selects all the checkboxes that have been checked
+/**Selects all the checkboxes that have been checked */
 const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
-//Payment selection variables
+
+/**Payment selection variables*/
 const payMethod = document.querySelector('.payment-methods');
 const payment = document.getElementById('payment');
 const credit = document.getElementById('credit-card');
@@ -42,7 +50,7 @@ const bitCoin = document.getElementById('bitcoin');
 
 /**nameInput.focus() makes the Name input box highlighted when the user opens the page. */
 nameInput.focus();
-//const focusTest = () => nameInput.focus ? console.log('yay!') : console.log('nay!');
+
 
 /**otherJob text box is hidden by default */ 
 otherJob.style.display = 'none';
@@ -82,7 +90,7 @@ registerActivity.addEventListener('change', e => {
         totalCost -= dataCost; 
     }
     activitiesTotal.innerHTML = `Total: $${totalCost}`;
-    //This section disables activities that happen concurrently, based on user input.
+    /**This section disables activities that happen concurrently, based on user input.*/
     if (librariesWS.checked) {
         frameworkWS.setAttribute('disabled', 'disabled');
     } else if (!librariesWS.checked) {
@@ -107,7 +115,8 @@ registerActivity.addEventListener('change', e => {
 
 
 /**Payment validation */
-//credit card is the default payment method, payPal and bitCoin methods are obscured until they are chosen.
+/**credit card is the default payment method, payPal and bitCoin methods are 
+ * obscured until they are chosen.*/
 payPal.style.display = 'none';
 bitCoin.style.display = 'none';
 
@@ -128,70 +137,95 @@ payment.addEventListener('change', e =>{
         bitCoin.style.display = 'block';
         credit.style.display = 'none';
         payPal.style.display = 'none'
-    }        
+    }  
+    console.log(payment.value);
 }); 
+
+
+
+
 
 /**wholeForm event listener validates names and e-mail addresses before the form can be submitted. */
 wholeForm.addEventListener('submit', e => {
     console.log('form submittal')
-    const nameIsValid = /^[a-zA-Z]+ ?[a-zA-Z]*? ?[a-zA-Z]*?$/.test(nameInput.value);
+    /**nameIsValid has a regular expression that tests for first and last names.  Middle initial 
+     * is optional. */
+    const nameIsValid = /^[a-zA-Z]+\s?[a-zA-Z]*? [a-zA-Z]*?$/mg.test(nameInput.value);
+    if (nameInput.value === "") {
+        console.log('You need to add a name');
+        nameInput.parentElement.lastElementChild.style.display = 'block';
+    }
+    if (!nameIsValid) {
+        e.preventDefault();
+        nameInput.parentElement.classList.add('not-valid');
+        nameInput.parentElement.classList.remove('valid');
+        completeNameHint.style.display = 'block';
+    }
     if (nameIsValid) {
         nameInput.parentElement.classList.add('valid');
     }        
-    if (!nameIsValid) {
-        e.preventDefault();
-        //alert('Please enter a valid name.');
-        nameInput.parentElement.classList.add('not-valid');
-        nameInput.parentElement.classList.remove('valid');
-        nameInput.parentElement.lastElementChild.style.display = 'block';
-    }
+    /** email validation will first check to see if the field is blank - if it is, then it will return 
+     * a message
+     * "Email field cannnot be blank", otherwise it will check to see if it's formatted correctly. 
+     */
     const emailIsValid = /^[^@]+@[^@.]+\.[a-z]+$/i.test(emailInput.value);
-    if (emailIsValid) {
-        emailInput.parentElement.classList.add('valid');
-    }        
-    if (!emailIsValid) {
+    if (emailInput.value === "") {
+        completeEmailHint.style.display = 'block';
+        emailInput.parentElement.classList.add('not-valid');
+        emailInput.parentElement.classList.remove('valid');
+        emailInput.parentElement.lastElementChild.style.display = 'none';
+    }
+    else if (!emailIsValid && emailInput !== "") {
         e.preventDefault();
-        //alert('Please enter a valid e-mail address.');
         emailInput.parentElement.classList.add('not-valid');
         emailInput.parentElement.classList.remove('valid');
         emailInput.parentElement.lastElementChild.style.display = 'block';
     }
-    const creditValidation = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(ccNumber.value);
-    //regex for cc number from w3resource https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-2.php
-    if (creditValidation) {
-        ccNumber.parentElement.classList.add('valid');
+    if (emailIsValid) {
+        emailInput.parentElement.classList.add('valid');
     }
-    if (!creditValidation){
-        e.preventDefault();
-        //alert('Please enter a valid credit card number');
-        ccNumber.parentElement.classList.add('not-valid');
-        ccNumber.parentElement.classList.remove('valid');
-        ccNumber.parentElement.lastElementChild.style.display = 'block';
+
+    if (payment.value !== 'paypal' || payment.value !== 'bitcoin') {
+
+        const creditValidation = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(ccNumber.value);
+        /**regex for cc number from w3resource 
+         * https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-2.php */
+        if (creditValidation) {
+            ccNumber.parentElement.classList.add('valid');
+        }
+        if (!creditValidation){
+            e.preventDefault();
+            ccNumber.parentElement.classList.add('not-valid');
+            ccNumber.parentElement.classList.remove('valid');
+            ccNumber.parentElement.lastElementChild.style.display = 'block';
+        }
+        
+        const zipValidation = /^\d{5}(?:[-\s]\d{4})?$/.test(zipCode.value);
+        /**zip code validator from stack overflow 
+         * https://stackoverflow.com/questions/2577236/regex-for-zip-code */
+        if (zipValidation) {
+            zipCode.parentElement.classList.add('valid');
+        }
+        if (!zipValidation) {
+            e.preventDefault();
+            zipCode.parentElement.classList.add('not-valid');
+            zipCode.parentElement.classList.remove('valid');
+            zipCode.parentElement.lastElementChild.style.display = 'block';
+        }
+        
+        const cvvValidation = /^\d{3}$/.test(cvv.value);
+        if (cvvValidation) {
+            cvv.parentElement.classList.add('valid');
+        }
+        if (!cvvValidation) {
+            e.preventDefault();
+            cvv.parentElement.classList.add('not-valid');
+            cvv.parentElement.classList.remove('valid');
+            cvv.parentElement.lastElementChild.style.display = 'block';
+        }
     }
-    const zipValidation = /^\d{5}(?:[-\s]\d{4})?$/.test(zipCode.value);
-    //zip code validator from stack overflow https://stackoverflow.com/questions/2577236/regex-for-zip-code
-    if (zipValidation) {
-        zipCode.parentElement.classList.add('valid');
-    }
-    if (!zipValidation) {
-        e.preventDefault();
-        //alert('Please enter a valid zip code.');
-        zipCode.parentElement.classList.add('not-valid');
-        zipCode.parentElement.classList.remove('valid');
-        zipCode.parentElement.lastElementChild.style.display = 'block';
-    }
-    const cvvValidation = /^\d{3}$/.test(cvv.value);
-    if (cvvValidation) {
-        cvv.parentElement.classList.add('valid');
-    }
-    if (!cvvValidation) {
-        e.preventDefault();
-        //alert('Please enter a valid CVV number.');
-        cvv.parentElement.classList.add('not-valid');
-        cvv.parentElement.classList.remove('valid');
-        cvv.parentElement.lastElementChild.style.display = 'block';
-    }
-    
+
+
     /**This section checks to ensure that at least one activity is checked */   
     const checkedCount = Array.prototype.slice.call(checkboxes).some(checks => checks.checked);    
     if (checkedCount) {
@@ -201,15 +235,12 @@ wholeForm.addEventListener('submit', e => {
         activitiesBox.parentElement.classList.add('not-valid');
         activitiesBox.parentElement.classList.remove('valid');
         activitiesBox.parentElement.lastElementChild.style.display = 'block';   
-        //alert('Please select at least one activity.')
     }    
-    //Remove this when validation is complete.
-    
 });   
  
 /**for...of loops for focus and blur states on each activity.  I couldn't figure
- * out how to make this work using a conventional for loop and to make addEventListener
- * work with the checkboxes variable and querySelectorAll.
+ * out how to make this work using a conventional for loop with an addEventListener
+ * and the checkboxes variable with querySelectorAll.  This seems concise enough.
  */
     
  registerActivity.addEventListener('focus', e => {
@@ -226,4 +257,21 @@ wholeForm.addEventListener('submit', e => {
         })
     };
 
-    
+/**nameInput eventListener listens for each keystroke added in the name input box and shows an 
+ * error message until a valid name with a first and last name has been added.  It can include 
+ * a middle name or initial.
+ */
+nameInput.addEventListener('keypress', e =>{
+    /**nameIsValid is declared again since the keypress event listener will not work unless it's in the 
+     * local scope.
+     */
+    const nameIsValid = /^[a-zA-Z]+\s?[a-zA-Z]*? [a-zA-Z]*?$/mg.test(nameInput.value);
+    if (!nameIsValid) {
+        completeNameHint.style.display = 'block';
+        nameInput.parentElement.classList.add('not-valid');
+        nameInput.parentElement.classList.remove('valid');
+    } else if (nameIsValid) {
+        completeNameHint.style.display = 'none';
+        nameInput.parentElement.classList.remove('not-valid');
+    }
+});
