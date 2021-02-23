@@ -9,6 +9,8 @@ const otherJob = document.getElementById('other-job-role');
 const designSelect = document.getElementById('design');
 const colorSelect = document.getElementById('color');
 const colorOption = document.querySelectorAll('#color option');
+const jsPuns = document.querySelectorAll('option[data-theme="js puns"]');
+const heartJS = document.querySelectorAll('option[data-theme="heart js"]');
 
 /**Activities selection variables*/
 const registerActivity = document.getElementById('activities');
@@ -48,9 +50,12 @@ const payPal = document.getElementById('paypal');
 const bitCoin = document.getElementById('bitcoin');
 const notBlank = document.getElementById('cc-not-blank');
 
+
+console.log(jsPuns);
+console.log(heartJS);
+
 /**nameInput.focus() makes the Name input box highlighted when the user opens the page. */
 nameInput.focus();
-
 
 /**otherJob text box is hidden by default */ 
 otherJob.style.display = 'none';
@@ -63,29 +68,53 @@ jobSelect.addEventListener('change', e => {
 /**Disables the select drop down list until the Design drop down is selected. */
 colorSelect.disabled = 'true';
 
+
+console.log(colorSelect.children[0]);
+
 /**Event listener checks for input into the dropdown list, enables selection of different T-shirt designs  */
 designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
+    colorSelect.children.hidden = 'true'
+    //colorSelect.children.style.display = 'none';
+    console.log(colorSelect)
+    console.log(colorSelect.children);
     for (let i = 0; i < colorSelect.children.length; i++) {
         const eventValue = e.target.value;
-        const colorSelectChildren = colorSelect.children[i].getAttribute('data-theme');
+        //const colorSelectChildren = colorSelect.children[i].getAttribute('data-theme');
         console.log(e.target.value);
+        //console.log(colorSelectChildren);
+        //console.log(jsPuns);
+        //console.log(heartJS);
+        //const jsPuns = .getAttribute('data-theme="js puns"');
+        //console.log(jsPuns)
                      
-        if (eventValue === colorSelectChildren) {
-            console.log('a match!');
-            colorSelect.children.hidden = 'false';
-            colorSelect.children[i].style.display = "block";
-            colorSelect.children[i].selected = 'true';
-           
+        if (eventValue === 'js puns') {
+           //console.log('a match!');
+           //jsPuns.hidden = 'false';
+           //colorSelect.children[i].style.display = "block";
+           //colorSelect.children[i].selected = 'true';
+           //jsPuns.style.display = "block";
+           colorSelect.children[1].hidden = 'false'
+           colorSelect.children[2].hidden = 'false'
+           colorSelect.children[3].hidden = 'false'
         } 
-        if (eventValue !== colorSelectChildren) {
-            console.log('they don\'t match')
-            colorSelect.children.hidden = 'true';
-            colorSelect.children[i].style.display = "none";
-            colorSelect.children[i].selected = 'false';
-        }
+        if (eventValue === 'heart js') {
+            //console.log('they don\'t match')
+            //heartJS.hidden = 'false';
+            //colorSelect.children[i].style.display = "none";
+            //colorSelect.children[i].selected = 'false';
+            //heartJS.style.display = "block";
+           colorSelect.children[4].hidden = 'false'
+           colorSelect.children[5].hidden = 'false'
+           colorSelect.children[6].hidden = 'false'
+
+        }        
     }
+    //console.log(jsPuns.hidden);
+    //console.log(heartJS.hidden);
 });
+
+
 
 /**Event listener for checkboxes - each check adds to the total, each uncheck subtracts. */
 registerActivity.addEventListener('change', e => {
