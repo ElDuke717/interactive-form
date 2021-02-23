@@ -68,14 +68,23 @@ designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
     for (let i = 0; i < colorSelect.children.length; i++) {
         const eventValue = e.target.value;
-        colorSelect.children[i].getAttribute('data-theme');
+        const colorSelectChildren = colorSelect.children[i].getAttribute('data-theme');
+        console.log(e.target.value);
+        console.log(designSelect.children[i]);
 
-        if (eventValue === colorOption[i].getAttribute('data-theme')) {
-            colorSelect.children.hidden = 'false';
+              
+        if (eventValue === colorSelectChildren) {
+            console.log('a match!');
+            //colorSelect.children.hidden = 'false';
             colorSelect.children[i].style.display = "block";
-        } else {
-            colorSelect.children.hidden = 'true';
+            colorSelect.children[i].selected = 'true';
+           
+        } 
+        if (eventValue !== colorSelectChildren) {
+            console.log('they don\'t match')
+            //colorSelect.children.hidden = 'true';
             colorSelect.children[i].style.display = "none";
+            colorSelect.children[i].selected = 'false';
         }
     }
 });
