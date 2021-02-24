@@ -51,8 +51,8 @@ const bitCoin = document.getElementById('bitcoin');
 const notBlank = document.getElementById('cc-not-blank');
 
 
-console.log(jsPuns);
-console.log(heartJS);
+//console.log(jsPuns);
+//console.log(heartJS);
 
 /**nameInput.focus() makes the Name input box highlighted when the user opens the page. */
 nameInput.focus();
@@ -65,56 +65,46 @@ jobSelect.addEventListener('change', e => {
     jobSelect.value === 'other' ? otherJob.style.display = "block": otherJob.style.display = "none";
 });
 
-/**Disables the select drop down list until the Design drop down is selected. */
+/**Disables the select drop down list until the Design drop down is selected. 
+ * Also sets the index of the options to zero to point user to select a design.
+*/
 colorSelect.disabled = 'true';
+colorSelect.selectedIndex = 0;
 
+jsPuns[0].hidden = 'true'
+jsPuns[1].hidden = 'true'
+jsPuns[2].hidden = 'true'
 
-console.log(colorSelect.children[0]);
+heartJS[0].hidden = 'true'
+heartJS[1].hidden = 'true'
+heartJS[2].hidden = 'true'
+
 
 /**Event listener checks for input into the dropdown list, enables selection of different T-shirt designs  */
 designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
-    colorSelect.children.hidden = 'true'
-    //colorSelect.children.style.display = 'none';
-    console.log(colorSelect)
-    console.log(colorSelect.children);
-    for (let i = 0; i < colorSelect.children.length; i++) {
-        const eventValue = e.target.value;
-        //const colorSelectChildren = colorSelect.children[i].getAttribute('data-theme');
-        console.log(e.target.value);
-        //console.log(colorSelectChildren);
-        //console.log(jsPuns);
-        //console.log(heartJS);
-        //const jsPuns = .getAttribute('data-theme="js puns"');
-        //console.log(jsPuns)
-                     
-        if (eventValue === 'js puns') {
-           //console.log('a match!');
-           //jsPuns.hidden = 'false';
-           //colorSelect.children[i].style.display = "block";
-           //colorSelect.children[i].selected = 'true';
-           //jsPuns.style.display = "block";
-           colorSelect.children[1].hidden = 'false'
-           colorSelect.children[2].hidden = 'false'
-           colorSelect.children[3].hidden = 'false'
-        } 
-        if (eventValue === 'heart js') {
-            //console.log('they don\'t match')
-            //heartJS.hidden = 'false';
-            //colorSelect.children[i].style.display = "none";
-            //colorSelect.children[i].selected = 'false';
-            //heartJS.style.display = "block";
-           colorSelect.children[4].hidden = 'false'
-           colorSelect.children[5].hidden = 'false'
-           colorSelect.children[6].hidden = 'false'
+    colorSelect.selectedIndex = 1;
+    const eventValue = e.target.value;       
 
-        }        
+    if (eventValue === 'js puns') {
+        jsPuns[0].removeAttribute('hidden');
+        jsPuns[1].removeAttribute('hidden');
+        jsPuns[2].removeAttribute('hidden');
+        heartJS[0].hidden = 'true';
+        heartJS[1].hidden = 'true';
+        heartJS[2].hidden = 'true';
     }
-    //console.log(jsPuns.hidden);
-    //console.log(heartJS.hidden);
+
+    if (eventValue === 'heart js') {
+        heartJS[0].removeAttribute('hidden');
+        heartJS[1].removeAttribute('hidden');
+        heartJS[2].removeAttribute('hidden');
+        jsPuns[0].hidden = 'true';
+        jsPuns[1].hidden = 'true';
+        jsPuns[2].hidden = 'true';
+    }
+ 
 });
-
-
 
 /**Event listener for checkboxes - each check adds to the total, each uncheck subtracts. */
 registerActivity.addEventListener('change', e => {
