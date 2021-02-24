@@ -70,11 +70,13 @@ jobSelect.addEventListener('change', e => {
 */
 colorSelect.disabled = 'true';
 colorSelect.selectedIndex = 0;
-
+/** All select options are set to 'hidden'.  I had to do it this way so that all are obscured by default.
+ * There is probably a more concise way to do this, but I worked this problem so many different ways I was 
+ * ready to be done with it.   This way is more readable and understandable.
+ */
 jsPuns[0].hidden = 'true'
 jsPuns[1].hidden = 'true'
 jsPuns[2].hidden = 'true'
-
 heartJS[0].hidden = 'true'
 heartJS[1].hidden = 'true'
 heartJS[2].hidden = 'true'
@@ -85,7 +87,9 @@ designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
     colorSelect.selectedIndex = 1;
     const eventValue = e.target.value;       
-
+    /** I tried to make a for loop work here, but I got lost in the weeds several times and decided  to
+     * explicitly reference each individual color option since there aren't that many of them.
+     */
     if (eventValue === 'js puns') {
         jsPuns[0].removeAttribute('hidden');
         jsPuns[1].removeAttribute('hidden');
@@ -103,7 +107,6 @@ designSelect.addEventListener('change', e => {
         jsPuns[1].hidden = 'true';
         jsPuns[2].hidden = 'true';
     }
- 
 });
 
 /**Event listener for checkboxes - each check adds to the total, each uncheck subtracts. */
@@ -118,24 +121,24 @@ registerActivity.addEventListener('change', e => {
     activitiesTotal.innerHTML = `Total: $${totalCost}`;
     /**This section disables activities that happen concurrently, based on user input.*/
     if (librariesWS.checked) {
-        frameworkWS.setAttribute('disabled', 'disabled');
+        frameworkWS.parentElement.setAttribute('class', 'disabled');
     } else if (!librariesWS.checked) {
-        frameworkWS.removeAttribute('disabled');
+        frameworkWS.parentElement.removeAttribute('class', 'disabled');
     }
     if (frameworkWS.checked) {
-        librariesWS.setAttribute('disabled', 'disabled');
+        librariesWS.parentElement.setAttribute('class', 'disabled');
     } else if (!frameworkWS.checked) {
-        librariesWS.removeAttribute('disabled');
+        librariesWS.parentElement.removeAttribute('class', 'disabled');
     }
     if (nodejsWS.checked) {
-        buildtWS.setAttribute('disabled', 'disabled');
+        buildtWS.parentElement.setAttribute('class', 'disabled');
     } else if (!nodejsWS.checked) {
-        buildtWS.removeAttribute('disabled');
+        buildtWS.parentElement.removeAttribute('class', 'disabled');
     }
     if (buildtWS.checked) {
-        nodejsWS.setAttribute('disabled', 'disabled');
+        nodejsWS.parentElement.setAttribute('class', 'disabled');
     } else if (!buildtWS.checked) {
-        nodejsWS.removeAttribute('disabled');
+        nodejsWS.parentElement.removeAttribute('class', 'disabled');
     }
 });
 
