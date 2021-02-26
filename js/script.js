@@ -57,7 +57,13 @@ nameInput.focus();
 
 /** nameValidator is a helper function that validates the name input */
 function nameValidator() {
-    const nameIsValid = /^[a-zA-Z]{3,40}(?:\s[A-Z])?\s[a-zA-Z]{2,40}$/mg.test(nameInput.value);
+    /** The name validator below test for first and last names and will allow for a middle inital
+     *  or name */
+    //const nameIsValid = /^[a-zA-Z]{3,40}(?:\s[A-Z])?\s[a-zA-Z]{2,40}$/mg.test(nameInput.value);
+    /**This validator just tests if the name is there's an entry.  The rubrick doesn't require 
+     * anything more complex.
+     */
+    const nameIsValid = /^[a-zA-Z]{3,40}/mg.test(nameInput.value);
     return nameIsValid;
 }
 
@@ -250,7 +256,9 @@ registerActivity.addEventListener('focus', e => {
 /**Credit validator function - it validates credit card numbers of different lengths from different credit card companies/banks */
 function creditValidator() {
     /**regex for cc number from w3resource https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-2.php */
-    const creditValidation = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(ccNumber.value);
+    //const creditValidation = /^(?:(4[0-9]{12}(?:[0-9]{3})?)|(5[1-5][0-9]{14})|(6(?:011|5[0-9]{2})[0-9]{12})|(3[47][0-9]{13})|(3(?:0[0-5]|[68][0-9])[0-9]{11})|((?:2131|1800|35[0-9]{3})[0-9]{11}))$/.test(ccNumber.value);
+    /**My homebrew credit card validator that just checks for 13-16 numbers - not brand specific. */
+    const creditValidation = /^\d{13,16}$/gm.test(ccNumber.value);
     return creditValidation;
 }
 
