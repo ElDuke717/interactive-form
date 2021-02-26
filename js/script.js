@@ -8,7 +8,7 @@ const otherJob = document.getElementById('other-job-role');
 /**T-shirt selection menu variables*/
 const designSelect = document.getElementById('design');
 const colorSelect = document.getElementById('color');
-const colorOption = document.querySelectorAll('#color option');
+const colorOption = document.querySelectorAll('option[data-theme]');
 const jsPuns = document.querySelectorAll('option[data-theme="js puns"]');
 const heartJS = document.querySelectorAll('option[data-theme="heart js"]');
 
@@ -142,37 +142,31 @@ colorSelect.selectedIndex = 0;
 /** All select options are set to 'hidden'.  Verbose way of obscuring all color options by default before 
  * the select menu is used. 
  */
-jsPuns[0].hidden = 'true'
-jsPuns[1].hidden = 'true'
-jsPuns[2].hidden = 'true'
-heartJS[0].hidden = 'true'
-heartJS[1].hidden = 'true'
-heartJS[2].hidden = 'true'
+
+function hideShirts() {
+    for (let i = 0; i < colorOption.length; i++ ){
+        colorOption[i].hidden = 'true';
+    }
+}
+hideShirts();
+
 
 /**Event listener checks for input into the dropdown list, enables selection of different T-shirt designs  */
 designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
     colorSelect.selectedIndex = 1;
     const eventValue = e.target.value;       
-    /** I tried to make a for loop work here, but I got lost in the weeds several times and decided  to
-     * explicitly reference each individual color option since there aren't that many of them.
+    /** This for loop unhides or hides the color based on what design is selected.
      */
-    if (eventValue === 'js puns') {
-        jsPuns[0].removeAttribute('hidden');
-        jsPuns[1].removeAttribute('hidden');
-        jsPuns[2].removeAttribute('hidden');
-        heartJS[0].hidden = 'true';
-        heartJS[1].hidden = 'true';
-        heartJS[2].hidden = 'true';
-    }
-
-    if (eventValue === 'heart js') {
-        heartJS[0].removeAttribute('hidden');
-        heartJS[1].removeAttribute('hidden');
-        heartJS[2].removeAttribute('hidden');
-        jsPuns[0].hidden = 'true';
-        jsPuns[1].hidden = 'true';
-        jsPuns[2].hidden = 'true';
+    for (let i = 0; i < colorOption.length; i++ ){
+        if (eventValue === 'js puns') {
+            jsPuns[i].removeAttribute('hidden');
+            heartJS[i].hidden = 'true';
+        }
+        if (eventValue === 'heart js') {
+            heartJS[i].removeAttribute('hidden');
+            jsPuns[i].hidden = 'true';
+        }
     }
 });
 
