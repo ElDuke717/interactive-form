@@ -7,18 +7,16 @@ hopefully make everything more legible.
 
 2. I'm going for an "Exceeds Expectations" grade for this project, please note the functionality that is included with the form:
 
-- The name input field validates the user's input in realtime using an eventlistener on the keypress event.  It will display 
+- The name input field validates the user's input in realtime using an eventlistener on the 'input' event.  It will display 
 "Please include a first and last name" until a first and last name are entered.  It will accept middle initials or full middle names.
-Also, note that if the name input is left blank, it show a message "Name field cannot be blank."
+Also, note that if the name input is left blank, it show a message "Name field cannot be blank." and both the messages "Please include a first and last name." and "Name field cannot be blank" will display simultaneously if a name has been entered and then erased. 
 
 -The email field will display a message "email field cannot be blank" if no email is entered into the input field.
 -"Email address must be formatted correctly." will be displayed if the email address is not formatted properly.
 
-3. Activities that occur at the same time cannot both be chosen - when a single Tuesday morning activity (JS Libraries OR JS frameworks)
-or single afternoon activity (Node.js or Build Tools) are selected, the checkbox for the concurrent activity is disabled and cannot be checked.
+- Activities that occur at the same time cannot both be chosen - when a single Tuesday morning activity (JS Libraries OR JS frameworks)
+or single afternoon activity (Node.js or Build Tools) are selected, the checkbox for the concurrent activity is disabled and cannot be checked.  Also the box (the parent element) will darken when it's disabled.
 
-4. Note that the T-shirt color menu updates after a design is chosen.  This is apparent after a user selects one of the two design options.
+3. The Regex for the credit card validation will validate all major credit cards.
 
-5. The Regex for the credit card validation will validate all major credit cards.
-
-6. The form will submit if Paypal or Bitcoin are chosen in lieu of Credit Card.
+4. The form will submit if Paypal or Bitcoin are chosen in lieu of Credit Card.
