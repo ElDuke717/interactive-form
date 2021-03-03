@@ -139,15 +139,18 @@ jobSelect.addEventListener('change', e => {
 */
 colorSelect.disabled = 'true';
 colorSelect.selectedIndex = 0;
-/** All select options are set to 'hidden'.  Verbose way of obscuring all color options by default before 
- * the select menu is used. 
- */
+
+/** All select options are set to 'hidden' using the hideShirts helper function. hideShirts is called just
+ * before the designSelect event listener.  A helper function is used here in case it needs to be called 
+ * later. 
+*/
 
 function hideShirts() {
     for (let i = 0; i < colorOption.length; i++ ){
         colorOption[i].hidden = 'true';
     }
 }
+
 hideShirts();
 
 
@@ -156,17 +159,20 @@ designSelect.addEventListener('change', e => {
     colorSelect.removeAttribute('disabled');
     colorSelect.selectedIndex = 1;
     const eventValue = e.target.value;       
-    /** This for loop unhides or hides the color based on what design is selected.
+    /** Two separate for loops to unhide or hide the color based on what design is selected.
      */
-    for (let i = 0; i < colorOption.length; i++ ){
-        if (eventValue === 'js puns') {
+    if (eventValue === 'js puns') {
+        for(let i=0; i<jsPuns.length;i++){
             jsPuns[i].removeAttribute('hidden');
-            heartJS[i].hidden = 'true';
+            heartJS[i].hidden = true;
         }
-        if (eventValue === 'heart js') {
-            heartJS[i].removeAttribute('hidden');
-            jsPuns[i].hidden = 'true';
+    }
+    if (eventValue === 'heart js') {
+        for(let i=0; i<heartJS.length;i++){
+        heartJS[i].removeAttribute('hidden');
+        jsPuns[i].hidden = true;
         }
+        
     }
 });
 
